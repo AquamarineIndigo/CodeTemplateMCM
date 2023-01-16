@@ -5,8 +5,13 @@ Including usages of making plots/figures and some code templates of mathematical
 
 Current folders:<br>
 1. plot
+	- Matlab
+	- Python
 2. template
-	1. Operational Research
-	2. Discrete Mathematics Model
+	- Operational Research
+		- Markov Chain 1: Posibility of being drenched
+	- Discrete Prediction Model
+		- Linear Programming
+		- Simulated Annealing Algorithm
 
 <br>Keep updating...
