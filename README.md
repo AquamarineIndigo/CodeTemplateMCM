@@ -13,5 +13,6 @@ Current folders:<br>
 	- Discrete Prediction Model
 		- Linear Programming
 		- Simulated Annealing Algorithm
+		- Genetic Algorithm solving TSP(Graph)
 
 <br>Keep updating...
