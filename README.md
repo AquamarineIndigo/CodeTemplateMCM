@@ -8,9 +8,9 @@ Current folders:<br>
 	- Matlab
 	- Python
 2. template
-	- Operational Research
-		- Markov Chain 1: Posibility of being drenched
 	- Discrete Prediction Model
+		- Markov Chain 1: Posibility of being drenched
+	- Operational Research
 		- Linear Programming
 		- Simulated Annealing Algorithm
 		- Genetic Algorithm solving TSP(Graph)
