@@ -12,6 +12,7 @@ Current folders:<br>
 		- Markov Chain 1: Posibility of being drenched
 	- Operational Research
 		- Linear Programming
+	- Optimization Method
 		- Simulated Annealing Algorithm
 		- Genetic Algorithm solving TSP(Graph)
 
