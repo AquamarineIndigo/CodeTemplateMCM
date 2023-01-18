@@ -19,7 +19,7 @@ Pc = 0.8 # posibility of change
 Pmutation = 0.05 # posibility of mutation
 
 bestFitRecord = [] # [array[N], min_dis]
-
+# f = open('runlog.txt', 'w+')
 # print(data)
 def init_dis(): # return: array[N, N]
 	ret = []
@@ -45,13 +45,11 @@ def init_pop(): # return: array[pop, N]
 	ret = []
 	buf = []
 	for i in range(pop):
-		for j in range(N):
-			r = int(random.random() * N)
-			# print('buf = {}\nr = {}'.format(buf, r))
-			# print(r in buf)
+		buf.append(0)
+		for j in range(1, N):
+			r = random.randint(1, N - 1)
 			while (r in buf) == True:
-				r = int(random.random() * N)
-				# print('none-repeat, r = {}'.format(r))
+				r = random.randint(1, N - 1)
 			buf.append(r)
 		ret.append(buf)
 		buf = []
@@ -72,18 +70,14 @@ def cal_fitness(popmat): # popmat: array[pop, N]; return: array[pop], float
 	buf = []
 	sum = 0
 	for i in range(pop):
-		len = cal_dis(popmat[i, :])
-		# for j in range(N):
-		# 	if j < N - 1:
-		# 		len += dis[popmat[i, j], popmat[i, j + 1]]
-		# 	else:
-		# 		len += dis[popmat[i, j], popmat[i, 0]]
-		buf.append(len)
+		buf.append(cal_dis(popmat[i, :]))
 	maxlen = max(buf)
 	minlen = min(buf)
 	ret = []
 	for i in range(pop):
+		# f.writelines('distance[{}] = {}\n'.format(i, buf[i]))
 		ret.append((1 - (buf[i] - minlen)/(maxlen - minlen + 0.001)) ** acc)
+		# f.writelines('fitness[{}] = {}\n'.format(i, ret[i]))
 		sum += ret[i - 1]
 	return np.array(ret), sum
 
@@ -100,10 +94,11 @@ def cross(tar1, tar2): # Position-Based Crossover; targets: array[N]
 	rval2 = [-1 for i in range(N)]
 	rpos1 = []
 	rpos2 = []
+	rval1[0] = rval2[0] = 0
 	for i in range(rlen):
-		rand = random.randint(0, N - 1)
+		rand = random.randint(1, N - 1)
 		while (rand in rpos1) == True:
-			rand = random.randint(0, N - 1)
+			rand = random.randint(1, N - 1)
 		rpos1.append(rand)
 		rval1[rpos1[i]] = tar1[rpos1[i]]
 		val_index = np.where(tar2 == rval1[rpos1[i]])
@@ -128,34 +123,36 @@ def cross(tar1, tar2): # Position-Based Crossover; targets: array[N]
 
 # cross(arr[0, :], arr[1, :])
 def mutation(tar): # tar: a copy of array[N]
-	index1 = int(random.random() * N)
-	index2 = int(random.random() * N)
+	index1 = int(random.random() * (N - 1)) + 1
+	index2 = int(random.random() * (N - 1)) + 1
 	while (index2 == index1):
-		index2 = int(random.random() * N)
+		index2 = int(random.random() * (N - 1)) + 1
 	
 	tar[index1], tar[index2] = tar[index2], tar[index1]
 	return tar
 
 for _iter_cnt in range(iter_times + 1):
+	# f.write('----- iter = {}\n'.format(_iter_cnt))
+	# f.writelines('arr = {}\n'.format(arr))
 	# assess fitness
 	fit, totfit = cal_fitness(arr) # fit: array[pop], totfit: float
-	# maxfitval = fit.max(axis = None)
-	maxfitpos = np.argmin(fit, axis = 0)
+	maxfitpos = np.argmax(fit, axis = 0)
 	# print('maxfitval = {}, maxfitpos = {}'.format(maxfitval, maxfitpos))
 	min_dis = cal_dis(arr[maxfitpos])
+	# f.write('min_dis = {}\n'.format(min_dis))
 	if bestFitRecord == []:
 		bestFitRecord = [arr[maxfitpos], min_dis]
 	elif min_dis < bestFitRecord[1]:
 		bestFitRecord = [arr[maxfitpos], min_dis]
-
+	# f.write('Best Record = {}\n'.format(bestFitRecord[1]))
 	# selection
 	# randomly select 2 and compare
 	new_arr_list = []
 	for i in range(pop):
-		_index1 = int(random.random() * N)
-		_index2 = int(random.random() * N)
+		_index1 = int(random.random() * pop)
+		_index2 = int(random.random() * pop)
 		while _index2 == _index1:
-			_index2 = int(random.random() * N)
+			_index2 = int(random.random() * pop)
 		if fit[_index1] > fit[_index2]:
 			new_arr_list.append(arr[_index1, :])
 		else:
@@ -174,3 +171,9 @@ for _iter_cnt in range(iter_times + 1):
 
 	arr = new_arr
 print('solution ={}\nminimum distance = {}'.format(bestFitRecord[0], bestFitRecord[1]))
+
+# Input iteration times:
+# 6003
+# solution =[ 0 19 10 14 23  1 24  4  3 13 16 22 18  7  5  9 17 20 15 12 21  6  8  2
+#  11]
+# minimum distance = 26.16939047324117
