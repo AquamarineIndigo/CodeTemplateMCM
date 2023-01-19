@@ -15,5 +15,7 @@ Current folders:<br>
 	- Optimization Method
 		- Simulated Annealing Algorithm
 		- Genetic Algorithm solving TSP(Graph)
+	- Simulation
+		- Celluar Automation simulation Waldbrand(Deutsche, Forest Fires)
 
 <br>Keep updating...
