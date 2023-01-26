@@ -21,6 +21,7 @@ Current folders:<br>
 	- Calculation
 		- Gradient Descent calculating Least Square
 	- Clustering
-		- K-means Algorithm
+		- K-means Algorithm (less calculation)
+		- Fuzzy C-means Algorithm used in images (slow!)
 
 <br>Keep updating...
