@@ -16,6 +16,11 @@ Current folders:<br>
 		- Simulated Annealing Algorithm
 		- Genetic Algorithm solving TSP(Graph)
 	- Simulation
-		- Celluar Automation simulation Waldbrand(Deutsche, Forest Fires)
+		- Celluar Automation simulating Waldbrand(Deutsche, Forest Fires)
+		- Monte Carlo -> Metropolis-Hastings
+	- Calculation
+		- Gradient Descent calculating Least Square
+	- Clustering
+		- K-means Algorithm
 
 <br>Keep updating...
